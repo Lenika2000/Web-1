@@ -63,34 +63,17 @@ $checkY = checkY($Y);
 $checkX = checkButtonValue($X,$arrX);
 $checkR = checkButtonValue($R,$arrR);
 
-
-function strCompareCheck($first, $second) {
-    $first = (string) $first;
-    $second = (string) $second;
-    while (strlen($first) > strlen($second)) {
-        if (strpos($second, '.') === false) //если число не вещественное, то добавим .
-            $second = $second.'.';
-        $second = $second.'0'; //конкантенация строк , приведение второго числа к такому же числу знаков после запятой, как у 1
-    }
-          return strcasecmp($first, $second);
-}
-
-
 if ($checkY && $checkX && $checkR) {
 
     $line = sqrt(pow($X, 2) + pow($Y, 2));
 
-    $triangle = ($X >= (-$R / 2) && $X <= 0) && ($Y >= 0 && strCompareCheck($Y, 2 * $X + $R) <= 0);
-    $square = ($X >= 0 && $X <= $R/ 2) && (strCompareCheck($Y, -$R / 2) <= 0 && $Y <= 0);
-    $circle = ($X >= 0 && $Y >= 0 && strCompareCheck( $line , ($R / 2))<=0);
+    $triangle = ($X >= (-$R / 2) && $X <= 0) && ($Y >= 0 && strCompare($Y, 2 * $X + $R) <= 0);
+    $square = ($X >= 0 && $X <= $R) && (strCompare($Y, -$R / 2) >= 0 && $Y <= 0);
+    $circle = ($X >= 0 && $Y >= 0 && strCompare( $line , ($R / 2))<=0);
 
 //    $triangle = ( $X >= (-$R / 2) && $X <= 0) && ($Y >= 0 && $Y <= 2 * $X + $R);
-//    $square = ($X >= 0 && $X <= $R / 2) && ($Y >=-$R / 2 && $Y <= 0);
+//    $square = ($X >= 0 && $X <= $R) && ($Y >=-$R / 2 && $Y <= 0);
 //    $circle = ($X >= 0 && $Y >= 0 && $line <= ($R / 2));
-
-//    $triangle = ( bccomp ($X, (-$R / 2),1000)>=0 && $X <= 0) && ($Y >= 0 && bccomp($Y, 2 * $X + $R, 1000) <= 0);
-//    $square = ($X >= 0 && bccomp ($X, ($R / 2),1000)<=0 && bccomp ($Y, (-$R / 2),1000)>=0 && $Y <= 0);
-//    $circle = ($X >= 0 && $Y >= 0 && bccomp ($line, ($R / 2),1000) <= 0);
 
     if ($triangle || $square || $circle) {
 
