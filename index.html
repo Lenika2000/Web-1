@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="pictures/vt.jpg" type="image/jpg">
+
+    <title>Лабораторная 1</title>
+    <style>
+        .selected {
+            background: rgb(255, 162, 211);
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h3>Маньшина Елена Группа Р3214 <br>Вариант 214012</h3>
+</header>
+
+<div class="container">
+    <p class="title">Определение попадания точки на координатной плоскости в заданную область ʕ ᵔᴥᵔ ʔ </p>
+    <div class="picture">
+        <canvas id="myCanvas"></canvas>
+    </div>
+
+    <div class="content">
+        <form>
+
+            <p>Изменение Х</p>
+            <div>
+                <button id="firstX" class="form_buttonX selected" type="button" value="-2">-2</button>
+                <button class="form_buttonX" type="button" value="-1.5">-1.5</button>
+                <button class="form_buttonX" type="button" value="-1">-1</button>
+                <button class="form_buttonX" type="button" value="-0.5">-0.5</button>
+                <button class="form_buttonX" type="button" value="0">0</button>
+                <button class="form_buttonX" type="button" value="0.5">0.5</button>
+                <button class="form_buttonX" type="button" value="1">1</button>
+                <button class="form_buttonX" type="button" value="1.5">1.5</button>
+                <button class="form_buttonX" type="button" value="2">2</button>
+                <div id="errorX" class="errorImage" data-title='Выход за пределы диапазона'><img src="pictures/error.png">
+                </div>
+            </div>
+
+            <p>Изменение Y</p>
+
+            <input type="text" id="form_input" placeholder="Введите значение в интервале от -5 до 5" name="Y" autocomplete="off">
+            <div id="errorY" class="errorImage" data-title='Выход за пределы диапазона'><img src="pictures/error.png">
+            </div>
+
+            <p id="textR">Изменение R</p>
+            <div>
+                <button id="firstR" class="form_buttonR selected" type="button" value="1">1</button>
+                <button class="form_buttonR" type="button" value="2">2</button>
+                <button class="form_buttonR" type="button" value="3">3</button>
+                <button class="form_buttonR" type="button" value="4">4</button>
+                <button class="form_buttonR" type="button" value="5">5</button>
+                <div id="errorR" class="errorImage" data-title='Выход за пределы диапазона'><img src="pictures/error.png">
+                </div>
+            </div>
+
+            <div id="buttons">
+                <input id="send_form" type="submit" name="send" value="Отправить"  disabled/>
+                <button id="cleanTable" type="button" style="display: none;" >Очистить таблицу </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div id="answer">
+
+    <table border="1">
+        <tr>
+            <th width=53px>X</th>
+            <th width=53px>Y</th>
+            <th width=53px>R</th>
+            <th width=200px>Попадание</th>
+            <th width=111px>Текущее время</th>
+            <th width=227px>Время выполнения скрипта</th>
+        </tr>
+    </table>
+
+</div>
+
+
+<!--<script src="lib/jquery-3.3.1.min.js"></script>-->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="javascript.js"></script>
+</body>
+
+</html>

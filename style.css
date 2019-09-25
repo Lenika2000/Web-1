@@ -1,0 +1,225 @@
+@import url(https://fonts.googleapis.com/css?family=Tenor+Sans|PT+Serif:400,400italic,700,700italic&subset=latin,cyrillic);
+
+body { /* Наследование стиля шрифта  */
+    margin: 0;
+    padding: 0;
+    font-family: 'Tenor Sans', sans-serif !important;
+    min-width: 1200px;
+    overflow-x:  hidden;
+}
+
+p {
+    font-size: 1em;
+    font-weight: 300;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+}
+
+header {
+    width: 100%;
+    height: 90px;
+    background-image: url("pictures/itmo.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+/* Пример селектора потомка */
+header h3 {
+    display: block;
+    position: absolute;
+    margin: 1% 0.5%;
+    height: 60px;
+    width: 550px;
+    background-image: url("pictures/gif.gif");
+    color: rgb(255, 162, 211);
+    font-size: 1.6em;
+    line-height: 1.7em; /* расстояние между строками */
+    font-weight: 100;
+}
+
+.title {
+    text-align: center;
+    color: rgb(60, 16, 44);
+    font-size: 1.6em;
+    font-family: 'Tenor Sans', sans-serif;
+}
+
+.container {
+    height: 450px;
+}
+
+.picture {
+    float: left;
+    padding: 3% 10%;
+    width: 20%;
+    height: 280px;
+}
+
+.content {
+    float: right;
+    padding: 3% 3%;
+    width: 53%;
+    height: 270px;
+}
+
+form , canvas {
+    padding: 0.5%;
+    position: relative;
+    height: 300px;
+    text-align: center;
+    /*border: 2px solid grey;*/
+    /*border-radius: 10px;*/
+    /*background: rgba(60, 16, 44, 0.2);*/
+}
+
+form {
+    padding: 0.5% 0.5% 0.5% 0.5%;
+    margin: 0.5%;
+    width: 620px;
+    text-align: left;
+}
+
+
+.errorImage {
+    display: inline;
+    opacity: 0;
+}
+
+/*!* Пример селектора псевдокласса*!*/
+.errorImage:after {
+    z-index: 98;
+    position: absolute;
+
+    padding: 0.5%;
+    margin: 1%;
+    size: auto;
+    background: rgba(232, 9, 9, 0.5);
+
+    border-radius: 5px;
+
+    color: #fff;
+    content: attr(data-title);
+    font-size: 0.7em;
+}
+
+
+#form_input {
+
+    background: rgb(60, 16, 44);
+    padding: 1%;
+    width: 50%;
+    margin: 0.5%;
+
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 8px;
+    outline: none;
+
+    font-size: 1em;
+    font-weight: 300;
+    /*text-align: center;*/
+
+    transition: transform 0.3s ease-out;
+}
+
+
+#form_input:focus {
+    transition: transform 0.3s ease-out;
+    transform: scale(1.02, 1.02);
+    background: rgb(255, 162, 211);
+}
+
+/*селектор атрибута*/
+.form_buttonX, .form_buttonR, input[name="send"], #cleanTable {
+    display: inline;
+    margin: 0.5%;
+    padding: 1% 2%;
+    text-transform: uppercase;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+
+    background-color: rgb(60, 16, 44);
+    background-clip: border-box;
+    font-size: 1em;
+    font-weight: 700;
+
+}
+
+#send_form {
+    background-color: darkgrey;
+    display: inline;
+}
+
+.form_buttonX:hover, .form_buttonR:hover, #cleanTable:hover , .changeColor:hover {
+    transition: all 0.3s ease-out;
+    transform: scale(1.02, 1.02);
+    box-shadow: rgba(255, 255, 255, 0.3) 0 0 16px 2px;
+    background: rgb(255, 162, 211) !important;
+}
+
+#buttons {
+    margin-block-start: 1em;
+    margin-block-end: 0.5em;
+}
+
+#answer {
+    padding: 1%;
+    background-image: url("pictures/itmo.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    text-align: center;
+    overflow: auto;
+    max-height: 500px;
+}
+
+
+table {
+    text-align: center;
+    margin: auto;
+    font-weight: 200;
+    color: #0f0f0f; /* цвет шрифта наследуется всеми тэгами td таблицы */
+
+    width: 700px; /* Ширина таблицы */
+    display: none;
+    border-radius: 8px;
+
+    border-bottom: 2px solid #dfdfdf;
+    border-collapse: separate;
+    border-spacing: 0px; /* толщина границ  */
+}
+
+table tbody tr:nth-child(1n) {
+    background: rgb(255, 162, 211);
+}
+
+table tbody tr:nth-child(2n) {
+    background: rgba(255, 162, 211,0.5);
+}
+
+table tr td {
+    border-right: 1px solid #dfdfdf;
+    overflow-x: auto;
+}
+
+.tdScroll {
+    width:53px;
+    overflow:auto;
+}
+
+.tdScroll::-webkit-scrollbar-track , #answer::-webkit-scrollbar-track{
+    background-color:rgba(60, 16, 44, 0.2);
+    box-shadow:0px 0px 3px #000 inset;
+    margin: 3px;
+}
+
+.tdScroll::-webkit-scrollbar-thumb, #answer::-webkit-scrollbar-thumb { /* цвет бегунка полосы, а так же его закругление. */
+    background-color: rgb(60, 16, 44);
+}
+
+.tdScroll::-webkit-scrollbar, #answer::-webkit-scrollbar{  /*Основная ширина полосы прокрутки.*/
+    height: 6px;
+}
