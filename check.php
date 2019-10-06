@@ -6,8 +6,10 @@ $arrR = array(1,2,3,4,5);
 $X = $_POST["buttonX"];
 $Y = $_POST["textY"];
 $R = $_POST["buttonR"];
+date_default_timezone_set("UTC"); //установка временной зоны по умолчанию
+$timezoneOffset = $_POST["timezoneOffset"];// сдвиг в секундах
 $SESSION = $_POST["SESSION"];
-$time = time() + 3 * 3600;
+$time = time() - $timezoneOffset * 60;
 $currentTime = date("H:i:s",$time);
 
 $checkY = true;
@@ -19,9 +21,9 @@ function strCompare($first, $second) {
     $first = (string) $first;
     $second = (string) $second;
     while (strlen($first) > strlen($second)) {
-        if (strpos($second, '.') === false) //если число не вещественное, то добавим .
+        if (strpos($second, '.') === false)
             $second = $second.'.';
-        $second = $second.'0'; //конкантенация строк , приведение второго числа к такому же числу знаков после запятой, как у 1
+        $second = $second.'0'; 
     }
     if  (strpos($first, '-') > -1 && strpos($second, '-')>-1)
 
@@ -78,11 +80,12 @@ if ($checkY && $checkX && $checkR) {
     if ($triangle || $square || $circle) {
 
         $hit = "Точка попадает в заданную область";
-
+        $color = "green";
 
     } else {
 
         $hit = "Точка не попадает в заданную область";
+        $color = "red";
 
     }
     $time = microtime(true) - $start;
@@ -93,8 +96,9 @@ if ($checkY && $checkX && $checkR) {
   "R" : ' . $R . ' ,
   "hit" : "' . $hit . '" ,
   "currentTime" :"' . $currentTime . ' ",
-  "time" : ' . $time .
-        ' }';
+  "time" : ' . $time . ' ,
+  "color" :" ' . $color .
+        '" }';
     array_push ($_SESSION['arr'], $data);
     echo $data;
 
