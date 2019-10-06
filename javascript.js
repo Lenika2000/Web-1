@@ -43,20 +43,27 @@ cleanButton.bind("click", function (e) {
 });
 
 var textY;
-var firstPattern = /^\./;
-var secondPattern= /\.$/;
+
+
 function checkY(textY) {
+
     if (!(textY == "")) {
-        if (isNaN(textY) && !Number.isFinite(Number(textY)) || firstPattern.test(textY) || secondPattern.test(textY) || /^-\./.test(textY)) {
+        var pattern =  /^\./.test(textY) || /\.$/.test(textY)
+            || /^-\./.test(textY) || /-0$/.test(textY) || /^0{2,}/.test(textY) || /^0+./.test(textY);
+        if ( isNaN(textY) && !Number.isFinite(Number(textY)) ||  pattern) {
             wrongValue("Некорректное значение Y");
         } else {
-            if ( strCompare(textY,-5)>0  && strCompare(textY,5)<0) {
-                $("#errorY").fadeTo(0, 0);
-                $('#send_form').removeAttr('disabled');
-                $("#send_form").css("background-color", "rgb(60, 16, 44)");
-                $("#send_form").addClass("changeColor");
-            } else {
+            if ((textY>=10) || (textY<=-10) ){
                 wrongValue('Выход за пределы диапазона');
+            } else {
+                if (strCompare(textY, -5) > 0 && strCompare(textY, 5) < 0) {
+                    $("#errorY").fadeTo(0, 0);
+                    $('#send_form').removeAttr('disabled');
+                    $("#send_form").css("background-color", "rgb(60, 16, 44)");
+                    $("#send_form").addClass("changeColor");
+                } else {
+                    wrongValue('Выход за пределы диапазона');
+                }
             }
         }
     } else {
@@ -64,14 +71,19 @@ function checkY(textY) {
     }
 }
 
+
+
 function strCompare( first, second) {
     first = new String(first);
     second = new String(second);
-    while (first.length > second.length) {
-        if (second.indexOf('.') === false) //если число не вещественное, то добавим .
-            second = second+'.';
-        second = second+'0'; //конкантенация строк , приведение второго числа к такому же числу знаков после запятой, как у 1
+    if (first.includes(".")) {
+        while (first.length > second.length) {
+            if (second.indexOf('.') === -1) //если число не вещественное, то добавим .
+                second = second + '.';
+            second = second + '0'; //конкантенация строк , приведение второго числа к такому же числу знаков после запятой, как у 1
+        }
     }
+
     if  (first.indexOf('-') > -1 && second.indexOf('-') > -1)
 
         if (first.localeCompare(second) == 0)
@@ -84,8 +96,6 @@ function strCompare( first, second) {
     else
         return first.localeCompare(second);
 }
-
-
 
 $("#form_input").bind("input", function () {
     textY = $("#form_input").val().replace(",", '.');
@@ -106,7 +116,7 @@ $("#send_form").click(function (event) {
 
     $.ajax({
         url: "check.php",
-        data: {buttonX: buttonX_value, textY: textY, buttonR: buttonR_value},
+        data: {buttonX: buttonX_value, textY: textY, buttonR: buttonR_value, timezoneOffset: new Date().getTimezoneOffset()},
         type: 'POST',
         success: function (data) {
 
@@ -118,7 +128,7 @@ $("#send_form").click(function (event) {
             if ("X" in answer) {
                 ctx.clearRect(0, 0, 305, 305); //очистка для перерисовки
                 drawGraph();
-                drawPoint(); //отмечаем точку
+                drawPoint(answer.color); //отмечаем точку
                 createTable();
                 addRow("table", answer);
             } else {
@@ -332,13 +342,13 @@ function drawRectangle() {
 
 }
 
-function drawPoint() {
+function drawPoint(color) {
 
     ctx.beginPath();
     ctx.arc(150 + buttonX_value * 30, 150 - textY * 30, 1, 0, 2 * Math.PI, true);
     ctx.closePath();
-    ctx.strokeStyle = "red";
-    ctx.fillStyle = "red";
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
     ctx.fill();
     ctx.stroke();
 }
